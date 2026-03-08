@@ -3,58 +3,86 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joabotel <joabotel@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:13:59 by joabotel          #+#    #+#             */
-/*   Updated: 2026/01/29 16:14:02 by joabotel         ###   ########.fr       */
+/*   Updated: 2026/03/08 03:07:10 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libs/libft_updated/libft.h"
+#include "../minishell.h"
 
-static int ft_flag(char *arg)
+static int	after_flag(char **array)
 {
-	int i;
+	int	i;
+	int	j;
 
 	i = 1;
-	if (!arg || arg[0] != '-' || arg[1] != 'n')
-		return (0);
-	while (arg[i])
+	while (array[i])
 	{
-		if (arg[i] != 'n')
-			return (0);
+		if (array[i][0] == '-' && array[i][1] == 'n')
+		{
+			j = 2;
+			while (array[i][j] == 'n')
+				j++;
+			if (array[i][j])
+				break ;
+		}
+		else
+			break ;
 		i++;
 	}
-	return (1);
+	return (i);
 }
 
-int echo(char **arg)
+int	echo(t_jobs *job)
 {
-	int i;
-	int j;
+	int		i;
+	bool	has_flag;
 
-	if (!arg)
-		return (ft_putchar_fd('\n', 1), 0);
-	j = 1;
-	i = 1;
-	while (arg[i] && ft_flag(arg[i]))
+	if (!job->job[1]) // apenas foi mandado "echo", imprime newline
+		return (ft_nl_fd(1), 0); // pq retornar 0
+	has_flag = false;
+	i = after_flag(job->job);
+	if (i > 1)
+		has_flag = true;
+	while (job->job[i])
 	{
-		j = 0;
+		if (job->job[i][0])
+			ft_printf("%s", job->job[i]);
+		if (job->job[i + 1])
+			ft_printf(" ");
 		i++;
 	}
-	while (arg[i])
-	{
-		ft_putstr_fd(arg[i], 1);
-		if (arg[i + 1])
-			ft_putchar_fd(' ', 1);
-		i++;
-	}
-	if (j)
-		ft_putchar_fd('\n', 1);
+	if (!has_flag)
+		ft_printf("\n");
 	return (0);
 }
 
-/*
-int	main(int ac, char **av){
-	echo(av);
-}*/
+// int main(void)
+// {
+// 	t_jobs	job;
+
+// 	char *cmd1[] = {"echo", "hello", "world", NULL};
+// 	char *cmd2[] = {"echo", "-n", "hello", "world", NULL};
+// 	char *cmd3[] = {"echo", "-nnnn", "hello", "world", NULL};
+// 	char *cmd4[] = {"echo", "-nnnn", "-nb", "hello", NULL};
+// 	char *cmd5[] = {"echo", NULL};
+
+// 	job.job = cmd1;
+// 	echo(&job);
+
+// 	job.job = cmd2;
+// 	echo(&job);
+
+// 	job.job = cmd3;
+// 	echo(&job);
+
+// 	job.job = cmd4;
+// 	echo(&job);
+
+// 	job.job = cmd5;
+// 	echo(&job);
+
+// 	return (0);
+// }

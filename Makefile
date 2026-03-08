@@ -1,4 +1,4 @@
-LIBFT_URL = https://github.com/SirMrPenguin/libft_updated.git
+LIBFT_URL = https://github.com/ana-fon/libft_updated.git
 LIBS_PATH = libs
 LIBFT_PATH = $(LIBS_PATH)/libft
 LIBFT_ARCH = $(LIBFT_PATH)/libft.a
