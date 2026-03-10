@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:46:05 by joabotel          #+#    #+#             */
-/*   Updated: 2026/03/08 02:39:03 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/03/09 01:11:41 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,19 @@ typedef struct s_jobs
 	struct s_jobs	*next;
 } t_jobs;
 
+typedef struct s_env
+{
+	char	**env;
+	int		status;
+		
+} t_env;
 
+// BUILTINS
 
+int	echo(t_jobs *job);
+int	pwd(void);
+void	cd(t_jobs *job, t_env *env);
+
+char	*ft_get_env(char	**env, char *str);
 
 #endif
