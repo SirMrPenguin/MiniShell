@@ -6,7 +6,7 @@
 /*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 03:43:03 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/11 04:04:40 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/03/11 04:18:20 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,24 @@
 
 bool	parse_export(char **job, char **env)
 {
+	int	i;
+	int	j;
+
 	if (!*job || !job || !*env || !env)
 		return (false);
-	
+	i = 1;
+	while (job[i])
+	{	
+		if (ft_isdigit(job[i][j]))
+			return (false);
+		j = 1;
+		while (job[i][j])
+		{
+			if (job[i][j])
+			
+		}
+		
+	}
 }
 
 
