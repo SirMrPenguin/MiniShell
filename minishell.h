@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:46:05 by joabotel          #+#    #+#             */
-/*   Updated: 2026/03/09 01:11:41 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/03/11 00:39:54 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ int	echo(t_jobs *job);
 int	pwd(void);
 void	cd(t_jobs *job, t_env *env);
 
-char	*ft_get_env(char	**env, char *str);
+int count_strings(char **array);
+
+//env
+char	*ft_get_env(char *str, char	**env);
 
 #endif
