@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/08 03:08:54 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/11 02:40:44 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/03/12 02:11:25 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ static void	update_wd(t_env *env, char *prefix, char *path) // corrrigir, a part
 	free (env->env[i]);
 	env->env[i] = new_var;
 }
-
 
 void	cd(t_jobs *job, t_env *env)
 {
