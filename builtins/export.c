@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 03:43:03 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/15 02:44:10 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/03/17 15:12:01 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int export(t_jobs *job, t_env *env)
 	env->env = new_env;
 	return (env->status);
 }
-
+/* 
 static void	print_env(char **env)
 {
 	int	i;
@@ -225,3 +225,4 @@ int	main(void)
 	free_array(env.env);
 	return (0);
 }
+ */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:46:05 by joabotel          #+#    #+#             */
-/*   Updated: 2026/03/15 22:27:40 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/03/21 03:51:17 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,54 +40,39 @@ typedef struct s_jobs
 
 typedef struct s_env
 {
-	char	**env;
-	int		status;
-	bool	redir_error;
-	
-		
+	char	*key;
+	char	*value;
+	int		visible;
+	t_env	*next;	
 } t_env;
 
 
 void	minishell(char **envp);
 
-t_env env_init(char **envp)
-{
-	t_env	env;
-
-	env.status = 0;
-	env.redir_error = 0;
-	
-	if (!envp)
-	{
-		env.env = create_env();
-		return (env);
-	}
-	else
-		env.env = copy_envp(envp);
-	return (env);
-}
-
-
-
 // BUILTINS
 
-int		echo(t_jobs *job);
-int		pwd(void);
-void	cd(t_jobs *job, t_env *env);
+
 
 int		count_strings(char **array);
 int		ft_len_till_equal(char *str);
-bool	ft_is_env_var_valid(char	*str);
+
+/*bool	ft_is_env_var_valid(char	*str); */
 //void	print_array(char **array);
 
 // free
 
 void	free_array(char **array);
+void	clear_env(t_env *env);
+
 
 //env
-char	*ft_get_env(char *str, char	**env);
-t_env	env_init(char **envp);
-char	**copy_env(char **envp);
-char	**create_env(void);
+void	init_env(t_env **env, char **envp);
+int		add_var_to_env(t_env **env, char *key, char *value, int visible);
+int		create_env(t_env **env);
+int		copy_env(t_env **env, char	**envp);
+t_env	*new_env_node(char *key, char *value, int visible);
+void	add_to_env(t_env **env, t_env *new_node); // adiciona um node no fim da linked list
+
+
 
 #endif
