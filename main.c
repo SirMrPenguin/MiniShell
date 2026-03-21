@@ -6,7 +6,7 @@
 /*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 13:51:07 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/20 22:20:28 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/03/21 03:59:57 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	minishell(char **envp)
 			/////idk
 		if (line && line[0])
 			add_history(line);
-		check_input (line);
+		check_input(line);
 	}
 }
 
