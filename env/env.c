@@ -6,7 +6,7 @@
 /*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 01:10:32 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/25 17:27:36 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/03/25 19:33:08 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int create_env(t_env **env)
 
 	*env = NULL;
 	cwd = getcwd(temp, PATH_SIZE);
-	if (cwd && !add_var_to_env(env, "PWD", cwd, 1)) // pq ao !cwd
+	if (cwd && !add_var_to_env(env, "PWD", cwd, 1)) // pq n ao !cwd
 		return (clear_env(*env), 0);
 	if (!add_var_to_env(env, "SHLVL", "1", 1))
 		return (clear_env(*env), 0);

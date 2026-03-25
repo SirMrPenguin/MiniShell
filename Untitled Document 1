@@ -1,0 +1,84 @@
+
+CRIAR UM NOVO ENV, env -i
+
+value = depois de =
+
+key = nome da variavel
+
+pwd -> getcwd(pwd, pathsize)
+
+criar cada "node" do env e adicionar -> 
+
+"sacar" path de "/etc/environment" (usar gnl)
+
+
+---------------------------
+
+
+	
+!!!!!! caso dê erro a meio da lista, criar um free_list
+
+
+
+env -> apenas variaveis exportadas
+
+export -> mostra todas as variaveis, incluindo as nao exportadas
+
+
+----------------------
+
+
+Q&A DA BURRA
+
+	- quais variaveis aparecem em env e export 
+	
+	- ft_add_to_env(env, ft_new_env_node("_", "????"), 1); 
+	
+---------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

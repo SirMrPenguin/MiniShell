@@ -6,7 +6,7 @@
 /*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:41:42 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/21 20:22:58 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/03/25 20:29:08 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,15 @@ int check_input(char *line, t_env   *env) // env para free(env) em caso de erro
     if (!line || !line[0])
     {
         clear_env(env);
-        ??????????????????????????????/
+        printf ("exit/n");
+        exit(status)???????????/
     }
+    remove_tabs(line);
+    if (is_everything)
 
+
+
+    
 
 
 
@@ -37,4 +43,16 @@ int check_input(char *line, t_env   *env) // env para free(env) em caso de erro
     3- erros de quotes
     
 
+}
+
+
+int	parse(char *commmand_line, char **env)
+{
+    char *linw;
+
+    line = remove_tabs_and_spaces(command);
+    if (!check_input(line, env))
+    {
+        
+    }
 }

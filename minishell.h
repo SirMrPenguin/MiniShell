@@ -6,7 +6,7 @@
 /*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:46:05 by joabotel          #+#    #+#             */
-/*   Updated: 2026/03/21 03:51:17 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/03/25 20:10:42 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # include <readline/history.h>
 
 # define PATH_SIZE 4096
+# define DQ 34
+# define SQ 39
 
 typedef struct s_jobs
 {
@@ -73,6 +75,14 @@ int		copy_env(t_env **env, char	**envp);
 t_env	*new_env_node(char *key, char *value, int visible);
 void	add_to_env(t_env **env, t_env *new_node); // adiciona um node no fim da linked list
 
+// parse
+
+int	parse(char *command_line, char **env);
+int check_input(char *line, t_env   *env);
+
+bool	closed_quotes(char *line);
+bool	is_in_quotes(char *str, int pos);
+void	remove_tabs(char *line);
 
 
 #endif
