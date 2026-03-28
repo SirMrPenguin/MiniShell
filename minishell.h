@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:46:05 by joabotel          #+#    #+#             */
-/*   Updated: 2026/03/25 20:10:42 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/03/28 00:50:22 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define PATH_SIZE 4096
 # define DQ 34
 # define SQ 39
+# define SPACE 32
 
 typedef struct s_jobs
 {
@@ -77,12 +78,19 @@ void	add_to_env(t_env **env, t_env *new_node); // adiciona um node no fim da lin
 
 // parse
 
-int	parse(char *command_line, char **env);
-int check_input(char *line, t_env   *env);
+int		parse(char *command_line, char **env);
+bool	check_input(char **line, t_env   *env);
 
 bool	closed_quotes(char *line);
+
+void	tab_to_space(char *line);
 bool	is_in_quotes(char *str, int pos);
-void	remove_tabs(char *line);
+
+bool	empty_line(char *line);
+
+char	*remove_spaces(char *line);
+int		ft_strlen_no_spaces(char *str);
+
 
 
 #endif

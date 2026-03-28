@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   closed_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 23:55:03 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/25 19:52:15 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/03/28 00:50:48 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,26 @@ bool	closed_quotes(char *line)
 		return (false);
 	}
 	return (true);
+}
+
+bool	is_in_quotes(char *str, int pos)
+{
+	int	i;
+	bool	in_sq;
+	bool	in_dq;
+
+	i = 0;
+	in_sq = false;
+	in_dq = false;
+	while (i < pos)
+	{
+		if (str[i] == DQ && !in_sq)
+			in_dq = !in_dq;
+		else if (str[i] == SQ && !in_dq)
+			in_sq = !in_sq;
+			i++;
+	}
+	if (in_sq || in_dq)
+		return (true);
+	return (false);
 }

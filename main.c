@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 13:51:07 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/21 03:59:57 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/03/28 01:15:02 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,15 @@ void	minishell(char **envp)
 		/////// DAR SETUP AOS SINAIS
 		line = readline("minishell$ ");
 		if (!line)
-			/////idk
+		{
+
+			///????????????
+			
+			continue;
+		}
 		if (line && line[0])
 			add_history(line);
-		check_input(line);
+		if (!parse(line, env))
 	}
 }
 

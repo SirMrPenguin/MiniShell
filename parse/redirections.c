@@ -1,41 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/25 19:46:38 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/28 00:51:02 by anisabel         ###   ########.fr       */
+/*   Created: 2026/03/28 02:22:04 by anisabel          #+#    #+#             */
+/*   Updated: 2026/03/28 02:26:39 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	tab_to_space(char *line)
+bool	check_redirections(char **line)
 {
-	int	i;
+	
+	se a string nao é apenas redir
 
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == '\t' && !is_in_quotes(line, i))
-			line[i] = ' ';
-		i++;
-	}
+	se existem no inicio e no fim 
+
+	
+	
+
+
+
+	
 }
-
-bool	empty_line(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] != ' ')
-			return (false);
-		i++;
-	}
-	return (true);
-}
-
