@@ -6,7 +6,7 @@
 /*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:41:42 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/28 02:22:47 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/03/28 02:58:06 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ bool	check_input(char **line, t_env   *env) // env para free(env) em caso de err
     tab_to_space(*line); // normaliza tabs em espaços
     if (empty_line(*line)) // verifica se existem apenas espaços 
 		return (false);
-	*line = remove_spaces(*line);
+	*line = remove_extra_spaces(line);
 /* 	if (!(*line))
 		return (false); */ //verificar se é necessário, pois se a linha for vazia não chega aqui
-	check_redirections()
+	if (check_redirections(line)) // verificar se é mm necessário **line
+		
     
 
 

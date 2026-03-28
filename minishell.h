@@ -6,7 +6,7 @@
 /*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:46:05 by joabotel          #+#    #+#             */
-/*   Updated: 2026/03/28 00:50:22 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/03/28 03:50:31 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,15 @@ typedef struct s_env
 	char	*value;
 	int		visible;
 	t_env	*next;	
-} t_env;
+} t_env; // atualizar init_var ao adicionar variáveis
 
+typedef struct s_var
+{
+	int	i;
+	int	j;
+	int	len;
+	char	*new;
+} t_var;
 
 void	minishell(char **envp);
 
@@ -88,9 +95,12 @@ bool	is_in_quotes(char *str, int pos);
 
 bool	empty_line(char *line);
 
-char	*remove_spaces(char *line);
+char	*remove_extra_spaces(char **line);
+void	trim_spaces(char *line);
+
+
 int		ft_strlen_no_spaces(char *str);
-
-
+int		count_chars(char *line);
+void	init_var(t_var *var);
 
 #endif
