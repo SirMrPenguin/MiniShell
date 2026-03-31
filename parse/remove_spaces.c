@@ -6,13 +6,13 @@
 /*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 00:35:07 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/28 03:52:33 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/03/28 21:02:08 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void trim_spaces(char *line)
+void trim_spaces(char **line)
 {
 	int i;
 	int j;
@@ -21,50 +21,57 @@ void trim_spaces(char *line)
 	char *new;
 
 	i = 0;
-	len = ft_strlen_no_spaces(line);
+	len = ft_strlen_no_spaces(*line);
 	new = calloc(len + 1, sizeof(char));
 	if (!new)
-		return (NULL);
-	while (line[i] == SPACE)
+		return ;
+	while ((*line)[i] == SPACE)
 		i++;
 	n = len + i;
 	j = 0;
 	while (i < n)
-		new[j++] = line[i++];
-	free(line);
+		new[j++] = (*line)[i++];
+	free(*line);
 	*line = new;
 }
 
-void only_one_space()
+void only_one_space(char **line, char **new, t_var v)
 {
+	bool	in_space;
 	
-}
-
-	char *remove_extra_spaces(char **line)
-{
-	t_var *var;
-	bool in_space;
-
-	init_var(var);
 	in_space = false;
-	var->new = calloc(count_chars(*line) + 1, sizeof(char));
-	if (!var->new)
-		return (NULL);
-	trim_spaces(line);
-	only_one_space(line);
-
-	while (line[var->i])
+	while ((*line)[v.i])
 	{
-		if (line[var->i] == SPACE)
+		if ((*line)[v.i] == SPACE)
 		{
 			if (in_space)
-				var->i++;
-			continue;
+			{
+				v.i++;
+				continue;		
+			}
+			in_space = true;
+			(*new)[v.j++] = (*line)[v.i++];
 		}
-		else if ()
-			var->new[var->j++] = line[var->i++];
+		else
+		{
+			(*new)[v.j++] = (*line)[v.i++];
+			in_space = false;
+		}
 	}
-
 	free(*line);
-	return (var->new);
+	*line = *new;
+}
+
+void	remove_extra_spaces(char **line)
+{
+	t_var	v;
+	char *new;
+	bool in_space;
+
+	init_var(v);
+	trim_spaces(line); // antes de alocar memória 
+	new = calloc(count_chars(*line) + 1, sizeof(char));
+	if (!new)
+		return ;
+	only_one_space(line, &new, v);
 }

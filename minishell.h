@@ -6,7 +6,7 @@
 /*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:46:05 by joabotel          #+#    #+#             */
-/*   Updated: 2026/03/28 03:50:31 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/03/31 02:34:13 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,17 @@ bool	is_in_quotes(char *str, int pos);
 
 bool	empty_line(char *line);
 
-char	*remove_extra_spaces(char **line);
+void	remove_extra_spaces(char **line);
+void	only_one_space(char **line, char **new, t_var *v);
 void	trim_spaces(char *line);
 
 
 int		ft_strlen_no_spaces(char *str);
 int		count_chars(char *line);
-void	init_var(t_var *var);
+void	init_var(t_var var); // remover se nunca for usado
+
+bool	check_redirections(char **line);
+bool	is_all_redir(char *line);
+bool	space_between_redir(char *line);
 
 #endif
