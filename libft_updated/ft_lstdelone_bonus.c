@@ -1,44 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/12 02:13:27 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/31 15:36:09 by anisabel         ###   ########.fr       */
+/*   Created: 2025/07/01 16:04:24 by mefische          #+#    #+#             */
+/*   Updated: 2026/01/11 20:27:29 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-void	free_array(char **array)
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	int	i;
-	
-	if (!array)
-		return ;
-	i = 0;
-	while (array[i])
-	{
-		free (array[i]);
-		i++;
-	}
-	free(array);
-}
-
-void	clear_env(t_env *env)
-{
-	t_env	*temp;
-	
-	if (!env)
-		return ;	
-	while (env)
-	{
-		temp = env->next;
-		free(env->key);
-		free(env->value);
-		free (env);
-		env = temp;
-	}
+	del(lst->content);
+	free(lst);
 }

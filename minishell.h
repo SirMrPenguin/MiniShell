@@ -6,7 +6,7 @@
 /*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:46:05 by joabotel          #+#    #+#             */
-/*   Updated: 2026/03/31 02:34:13 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/03/31 17:27:53 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,37 @@
 # define SQ 39
 # define SPACE 32
 
-typedef struct s_jobs
+typedef enum s_type
 {
-	int				type;
-	char			**job;
-	struct s_jobs	*next;
-} t_jobs;
+	PIPE,
+	COMMAND, //ls, grep, cat
+	OPTION, // -n, -l
+	FILES, // file.txt
+	REDIR_IN, // <
+	REDIR_IN2, // << heredoc
+	REDIT_OUT, // >
+	REDIR_OUT2, // >>
+	ERROR, // token invalido ou erro de parsing
+	MAIN, // processo principal
+	CHILD, // processo filho
+	PIPE, // 
+	HERE_DOC, // <<
+	IGNORE // tokens a ser ignorados = espaços, strings vazias, quotes tratadas (???)
+}		t_type;
+
+typedef struct s_token
+{
+	char	*content;
+	t_type	type;
+	t_token	*next;
+} t_token;
+
+typedef struct s_command
+{
+	t_env			*env;
+	t_token			*token;
+	t_commands		*next;
+} t_commands;
 
 typedef struct s_env
 {
@@ -85,7 +110,7 @@ void	add_to_env(t_env **env, t_env *new_node); // adiciona um node no fim da lin
 
 // parse
 
-int		parse(char *command_line, char **env);
+bool	parse(char *command_line, t_env *env, t_commands **commands);
 bool	check_input(char **line, t_env   *env);
 
 bool	closed_quotes(char *line);
@@ -96,16 +121,27 @@ bool	is_in_quotes(char *str, int pos);
 bool	empty_line(char *line);
 
 void	remove_extra_spaces(char **line);
-void	only_one_space(char **line, char **new, t_var *v);
-void	trim_spaces(char *line);
+void	only_one_space(char **line, char **new, t_var v);
+void	trim_spaces(char **line);
 
 
 int		ft_strlen_no_spaces(char *str);
 int		count_chars(char *line);
-void	init_var(t_var var); // remover se nunca for usado
+void	init_var(t_var *var); // remover se nunca for usado
 
-bool	check_redirections(char **line);
+bool	check_redirections_pipes(char *line);
 bool	is_all_redir(char *line);
+bool	is_all_pipe(char *line);
+
+char	**split_commands(char *line);
+t_commands	*create_command_list(char *line);
+
+
+
+
+
+
+
 bool	space_between_redir(char *line);
 
 #endif

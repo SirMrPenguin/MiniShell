@@ -1,44 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_free_array.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/12 02:13:27 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/31 15:36:09 by anisabel         ###   ########.fr       */
+/*   Created: 2026/03/08 02:04:44 by anisabel          #+#    #+#             */
+/*   Updated: 2026/03/08 02:09:28 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
 void	free_array(char **array)
 {
 	int	i;
-	
+
 	if (!array)
 		return ;
 	i = 0;
 	while (array[i])
-	{
-		free (array[i]);
-		i++;
-	}
+		free(array[i++]);
 	free(array);
-}
-
-void	clear_env(t_env *env)
-{
-	t_env	*temp;
-	
-	if (!env)
-		return ;	
-	while (env)
-	{
-		temp = env->next;
-		free(env->key);
-		free(env->value);
-		free (env);
-		env = temp;
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 00:35:07 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/28 21:02:08 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/03/31 17:07:19 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	remove_extra_spaces(char **line)
 	char *new;
 	bool in_space;
 
-	init_var(v);
+	init_var(&v);
 	trim_spaces(line); // antes de alocar memória 
 	new = calloc(count_chars(*line) + 1, sizeof(char));
 	if (!new)

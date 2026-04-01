@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 01:10:32 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/25 19:33:08 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/03/31 15:47:22 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void init_env(t_env **env, char **envp)
 	if (!envp || !envp[0]) // criar env a partir do sistema
 	{
 		if (!create_env(env)) // alterar create_new para ja dar free e anular o ponteiro internamente
-			*env = NULL;
+			*env = NULL; // para não apontar para memória libertada
 	}
 	else if (!copy_env(env, envp))
 	{
@@ -61,8 +61,8 @@ int create_env(t_env **env)
 
 int	copy_env(t_env **env, char	**envp)
 {
-	int	i;
-	int	equal_len;
+	int		i;
+	int		equal_len;
 	char	*key;
 	char	*value;
 	
@@ -76,7 +76,7 @@ int	copy_env(t_env **env, char	**envp)
 		value = NULL;
 		if (envp[i][equal_len] == '=')
 			value = envp[i] + equal_len + 1;
-		if (!add_var_to_env(env, key, value, 1))
+		if (!add_var_to_env(env, key, value, 1)) // se não existir =, o valor é nulo
 			return (free(key), 0);
 		free(key);
 		i++;

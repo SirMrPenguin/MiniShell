@@ -6,7 +6,7 @@
 /*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 13:51:07 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/28 01:15:02 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/03/31 17:22:06 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	minishell(char **envp)
 {
 	char	*line;
 	t_env	*env;
-	t_jobs	*jobs;
+	t_commands	*commands;
 
 	init_env(&env, envp);
 	while (1)
@@ -32,7 +32,10 @@ void	minishell(char **envp)
 		}
 		if (line && line[0])
 			add_history(line);
-		if (!parse(line, env))
+		if (!parse(line, env, &commands)) // em caso de erro já dá clean do
+			{
+				
+			}
 	}
 }
 

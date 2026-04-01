@@ -1,44 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/12 02:13:27 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/31 15:36:09 by anisabel         ###   ########.fr       */
+/*   Created: 2025/04/23 17:15:22 by mefische          #+#    #+#             */
+/*   Updated: 2026/01/11 20:25:17 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-void	free_array(char **array)
+t_list	*ft_lstlast(t_list *lst)
 {
-	int	i;
-	
-	if (!array)
-		return ;
-	i = 0;
-	while (array[i])
+	if (!lst)
+		return (NULL);
+	while (lst->next != NULL)
 	{
-		free (array[i]);
-		i++;
+		lst = lst->next;
 	}
-	free(array);
-}
-
-void	clear_env(t_env *env)
-{
-	t_env	*temp;
-	
-	if (!env)
-		return ;	
-	while (env)
-	{
-		temp = env->next;
-		free(env->key);
-		free(env->value);
-		free (env);
-		env = temp;
-	}
+	return (lst);
 }

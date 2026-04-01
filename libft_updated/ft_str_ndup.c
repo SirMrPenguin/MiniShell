@@ -1,44 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/12 02:13:27 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/31 15:36:09 by anisabel         ###   ########.fr       */
+/*   Created: 2026/03/09 01:43:33 by anisabel          #+#    #+#             */
+/*   Updated: 2026/03/09 01:51:56 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-void	free_array(char **array)
+char	*ft_str_ndup(char const *s1, int n)
 {
-	int	i;
-	
-	if (!array)
-		return ;
+	int		i;
+	char	*dest;
+
+	if (!s1)
+		return (NULL);
+	dest = (char *)malloc(sizeof(char) * ft_strlen(s1) + 1);
+	if (!dest)
+		return (NULL);
 	i = 0;
-	while (array[i])
+	while (s1[i] && i < n)
 	{
-		free (array[i]);
+		dest[i] = s1[i];
 		i++;
 	}
-	free(array);
-}
-
-void	clear_env(t_env *env)
-{
-	t_env	*temp;
-	
-	if (!env)
-		return ;	
-	while (env)
-	{
-		temp = env->next;
-		free(env->key);
-		free(env->value);
-		free (env);
-		env = temp;
-	}
+	dest[i] = '\0';
+	return (dest);
 }

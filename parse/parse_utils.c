@@ -6,7 +6,7 @@
 /*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:46:38 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/28 03:45:29 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/03/31 17:06:35 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int ft_strlen_no_spaces(char *str)
 	return (j - i + 1);
 }
 
-int	count_chars(char *line)
+int	count_chars(char *line)  // conta os espaços apenas 1 vez
 {
 	int 	i;
 	int		counter;

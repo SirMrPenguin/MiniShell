@@ -1,44 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_unsig_putnbr.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/12 02:13:27 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/31 15:36:09 by anisabel         ###   ########.fr       */
+/*   Created: 2025/05/02 12:10:17 by mefische          #+#    #+#             */
+/*   Updated: 2026/01/11 20:32:05 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-void	free_array(char **array)
+int	ft_unsign_putnbr(unsigned int n)
 {
-	int	i;
-	
-	if (!array)
-		return ;
-	i = 0;
-	while (array[i])
-	{
-		free (array[i]);
-		i++;
-	}
-	free(array);
-}
+	int	count;
 
-void	clear_env(t_env *env)
-{
-	t_env	*temp;
-	
-	if (!env)
-		return ;	
-	while (env)
+	count = 0;
+	if (n > 9)
 	{
-		temp = env->next;
-		free(env->key);
-		free(env->value);
-		free (env);
-		env = temp;
+		count += ft_putnbr(n / 10);
+		count += ft_putnbr(n % 10);
 	}
+	if (n <= 9)
+	{
+		n = n + 48;
+		count += write(1, &n, 1);
+	}
+	return (count);
 }

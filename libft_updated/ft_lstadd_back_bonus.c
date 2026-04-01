@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/08 02:28:42 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/08 03:07:54 by anisabel         ###   ########.fr       */
+/*   Created: 2025/04/23 17:40:03 by mefische          #+#    #+#             */
+/*   Updated: 2026/01/11 20:27:06 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-int	pwd(void)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	char	cwd[PATH_SIZE];
+	t_list	*last;
 
-	if (!getcwd(cwd, PATH_SIZE))
-		return (ft_printf("getcwd error \n"), 1);
-	ft_printf("%s\n", cwd);
-	return (0);
+	if (lst && new)
+	{
+		while (!(*lst))
+		{
+			*lst = new;
+			return ;
+		}
+		last = ft_lstlast(*lst);
+		last->next = new;
+	}
 }
-
-// int main ()
-// {
-//     pwd();
-// }

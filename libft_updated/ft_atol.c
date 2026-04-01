@@ -1,44 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/12 02:13:27 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/31 15:36:09 by anisabel         ###   ########.fr       */
+/*   Created: 2025/08/11 10:38:49 by mefische          #+#    #+#             */
+/*   Updated: 2026/01/13 16:52:52 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-void	free_array(char **array)
+long	ft_atol(const char *nptr)
 {
-	int	i;
-	
-	if (!array)
-		return ;
-	i = 0;
-	while (array[i])
-	{
-		free (array[i]);
-		i++;
-	}
-	free(array);
-}
+	long	res;
+	int		neg;
 
-void	clear_env(t_env *env)
-{
-	t_env	*temp;
-	
-	if (!env)
-		return ;	
-	while (env)
+	res = 0;
+	neg = 1;
+	if (!nptr)
+		return (0);
+	while ((*nptr == 32) || (*nptr >= 9 && *nptr <= 13))
+		nptr++;
+	if (*nptr == '-' || *nptr == '+')
 	{
-		temp = env->next;
-		free(env->key);
-		free(env->value);
-		free (env);
-		env = temp;
+		if (*nptr == '-')
+			neg = -neg;
+		nptr++;
 	}
+	while (*nptr >= '0' && *nptr <= '9')
+	{
+		res = res * 10 + (*nptr - '0');
+		nptr++;
+	}
+	return (res * neg);
 }
