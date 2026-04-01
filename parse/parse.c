@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:41:42 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/31 17:28:59 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/01 19:16:03 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,15 @@ char	**split_commands(char *line)
 
 t_commands	*create_command_list(char *line)
 {
-	char	**commands_splited;
+	char	**commands_split ;
 
-	commands_splited = split_commands(line); // separar commands pela 
+	commands_split = split_commands(line); // separar commands pela 
 }
 
 bool	parse(char *command_line, t_env *env, t_commands **commands)
 {
-	char	**commands_splited;
 
+    
 	if (!check_input(&command_line, env))
 		return (clear_env(env), false); // é p libertar? o readline continua
 	*commands = create_command_list(command_line);
