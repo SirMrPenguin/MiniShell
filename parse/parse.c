@@ -6,7 +6,7 @@
 /*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:41:42 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/02 03:05:45 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/02 03:24:27 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ bool	check_input(char **line, t_env   *env) // env para free(env) em caso de err
 	remove_extra_spaces(line); // remove espaços a mais no início, fim e durante a linha
 /* 	if (!(*line))
 		return (false); */ //verificar se é necessário, pois se a linha for vazia não chega aqui
-	if (!check_redirections_pipes(line)) // verifica só redir e se tem reditr no fim  
+	if (!check_redirections_pipes(line)) // verifica só redir/pipe e se tem reditr no fim e pipe no inicio/fim + rdir invalidas
 		return (false);
 
 }

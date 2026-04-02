@@ -6,7 +6,7 @@
 /*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 02:22:04 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/02 00:09:08 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/02 03:41:31 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,20 @@ bool	is_all_pipe(char *line)
 	return (false);
 }
 
+bool	is_redir_valid(char *line)
+{
+	int	i;
+
+	i = 0;
+	if ((line[i] == '>' || line[i] == '<') && (line[i + 1] == '>' || line[i + 1] == '<') && (line[i + 2] == '>' | line[i + 2] == '<'))
+		return (false);
+	else if ((line[i] == '>' && line [i + 1] == '<') || (line[i] == '<' && line [i + 1] == '>'))
+		return (false);
+	else if ((line[i] == '>' ||line [i + 1] == '<') && line[i] == '|')
+		return (false);
+	return (true);
+}
+
 bool	check_redirections_pipes(char *line)
 {
 	int	len;
@@ -76,4 +90,7 @@ bool	check_redirections_pipes(char *line)
 		//print erro (syntax error near unexpected token `newline');
 		return (false);
 	}
+	if (!is_redir_valid(line))
+		return (false);
+	return (true);
 }
