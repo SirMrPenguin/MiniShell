@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   closed_quotes.c                                    :+:      :+:    :+:   */
+/*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 23:55:03 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/28 00:50:48 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/01 23:49:05 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ bool	is_in_quotes(char *str, int pos)
 			in_dq = !in_dq;
 		else if (str[i] == SQ && !in_dq)
 			in_sq = !in_sq;
-			i++;
+		i++;
 	}
 	if (in_sq || in_dq)
 		return (true);

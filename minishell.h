@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:46:05 by joabotel          #+#    #+#             */
-/*   Updated: 2026/03/31 17:27:53 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/02 02:50:46 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 #define MINISHELL_H
 
-# include "libft/libft.h"
+# include "libft_updated/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
@@ -32,7 +32,7 @@
 # define PATH_SIZE 4096
 # define DQ 34
 # define SQ 39
-# define SPACE 32
+//# define SPACE 32    erro com define de readline (?)
 
 typedef enum s_type
 {
@@ -76,9 +76,11 @@ typedef struct s_env
 
 typedef struct s_var
 {
-	int	i;
-	int	j;
-	int	len;
+	int		i;
+	int		j;
+	int		begin;
+	int		end;
+	int		len;
 	char	*new;
 } t_var;
 
@@ -126,18 +128,19 @@ void	trim_spaces(char **line);
 
 
 int		ft_strlen_no_spaces(char *str);
-int		count_chars(char *line);
+int		count_chars_one_space(char *line);
 void	init_var(t_var *var); // remover se nunca for usado
 
 bool	check_redirections_pipes(char *line);
 bool	is_all_redir(char *line);
 bool	is_all_pipe(char *line);
 
-char	**split_commands(char *line);
 t_commands	*create_command_list(char *line);
-
-
-
+char		**split_commands(char *line);
+int 		count_pipes(char *line); // conta pipes fora de aspas
+int			count_char (int begin, int end); // conta char entre 2 pos 
+void		copy_command(char *array, char *line, int begin, int len);
+int			copy_command_array(char *line, char **command_array, t_var v);
 
 
 

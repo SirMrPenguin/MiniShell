@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_input_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 02:22:04 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/31 15:27:39 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/02 00:09:08 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	is_all_redir(char *line)
 	has_redir = false;
 	while (line[i])
 	{
-		if (line[i] != SPACE)
+		if (line[i] != ' ')
 		{
 			if (line[i] != '<' && line[i] != '>')
 				return (false);
@@ -46,7 +46,7 @@ bool	is_all_pipe(char *line)
 	has_pipe = false;
 	while (line[i])
 	{
-		if (line[i] != SPACE)
+		if (line[i] != ' ')
 		{
 			if (line[i] != '|')
 				return (false);
@@ -71,7 +71,7 @@ bool	check_redirections_pipes(char *line)
 		return (false);
 	if (is_all_pipe(line))
 		return (false);
-	if (line[len - 1] == '<' || line[len - 1] == '>' || line[len - 1] == '|')
+	if (line[len - 1] == '<' || line[len - 1] == '>' || line[len - 1] == '|' || line[0] == '|')
 	{
 		//print erro (syntax error near unexpected token `newline');
 		return (false);

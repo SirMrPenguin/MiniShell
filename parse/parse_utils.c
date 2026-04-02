@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:46:38 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/31 17:06:35 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/02 01:00:21 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,7 @@ bool	empty_line(char *line)
 	return (true);
 }
 
-int ft_strlen_no_spaces(char *str)
-{
-	int	i;
-	int j;
-
-	i = 0;
-	while(str[i] && str[i] == SPACE) // verificar se é preciso str[i]
-		i++;
-	j = ft_strlen(str) - 1;
-	while (str[j] == SPACE && j >= i)
-		j--;
-	if (j < i)
-		return (0);
-	return (j - i + 1);
-}
-
-int	count_chars(char *line)  // conta os espaços apenas 1 vez
+int	count_chars_one_space(char *line)  // conta os espaços apenas 1 vez
 {
 	int 	i;
 	int		counter;
@@ -89,6 +73,8 @@ void	init_var(t_var *var)
 	var->i = 0;
 	var->j = 0;
 	var->len = 0;
-	var->new = 0;
+	var->new = NULL;
+	var->begin = 0;
+	var->end = 0;
 }
 
