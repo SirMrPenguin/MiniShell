@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:46:05 by joabotel          #+#    #+#             */
-/*   Updated: 2026/04/07 11:11:44 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/10 00:39:36 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ t_commands	*create_command(char *cmd, t_env *env);
 t_token		*tokenize_command(char *cmd);
 
 void	update_quotes(char c, t_quote_status *status);
-t_token	*read_word_token(t_token **head, char	*cmd, int *i);
+t_token	*read_word_token(char	*cmd, int *i);
 t_token	*create_token(char	*str, int type);
 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:41:42 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/05 01:27:35 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/09 20:03:03 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,20 @@ t_commands	*create_command_list(char *cmd, t_env *env)
 	
 
 	i = 0;
-	commands_split = split_commands(cmd); // separar commands pela 
+	commands_split = split_commands(cmd); // separar commands por pipes
 	if (!commands_split)
 		return (NULL);
 	while (commands_split[i])
-		trim_spaces(&commands_split[i++]); // tirar espacos na ponta
-		commands = create_command(commands_split, env);
+		trim_spaces(&commands_split[i++]); // tirar espacos nas pontas
+		commands = create_command(commands_split[0], env);
 		
-	current = commands;
+	current = commands; // igualar current a commands, para dps retornar *t_commands (sem ter alterado o pointer principal)
 	i = 0;
 	while (commands_split[++i])
 	{
 		current->next = create_command(commands_split[i], env);
 		current = current->next;
 	}
-	
 	return (free_array(commands_split), commands);
 }
 
@@ -68,8 +67,9 @@ bool	parse(char *command_line, t_env *env, t_commands **commands)
     
 	if (!check_input(&command_line, env))
 		return (clear_env(env), false); // é p libertar? o readline continua
-	*commands = create_command_list(command_line); // verificar return das funcoes &&
-	// retorna o pointer para a head da lista de comandos
+	*commands = create_command_list(command_line); 
+		// verificar return das funcoes &&
+		// retorna o pointer para a head da lista de comandos
 	
 	
 }

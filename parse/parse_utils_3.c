@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils_3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 01:50:48 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/07 11:08:58 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/10 00:46:24 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,36 +43,56 @@ t_token	*create_token(char	*str, int type)
 		return (NULL);
 	token = calloc(1, sizeof(t_token));
 	if (!token)
+	{
+		free(str);	
 		return (NULL);
+	}
 	token->content = str;
 	token->type = type;
 	token->next = NULL;
 	return (token);
 }
 
-t_token	*read_word_token(t_token **head, char	*cmd, int *i)
+t_token	*read_word_token(char	*cmd, int *i)
 {
 	int				begin;
 	int				end;
 	char			*str;
 	t_type			type;
-	t_quote_status	*status;
+	t_quote_status	status;
 
-	status->in_dq = false;
-	status->in_sq = false;
+	status.in_dq = false;
+	status.in_sq = false;
 	begin = *i;
 	while (cmd[*i]) // incrementa até chegar a um stop, inclusive
 	{
-		if (!status->in_dq && !status->in_sq && 
+		if (!status.in_dq && !status.in_sq && 
 				(cmd[*i] == 32 || cmd[*i] == '<' || cmd[*i] == '>'))
 			break;
-		update_quotes(cmd[*i], status);	
+		update_quotes(cmd[*i], &status);	
 		(*i)++;
 	}
-	end = *i;
+	end = *i; // a contar com o delimiter ou fim da string
 	str = ft_substr(cmd, begin, end - begin);
 	if (!str)
 		return (NULL);
-	return (create_token(str, WORD)); // create_token("ls", WORD); não pode ser feito, pois ls nao é uma strig alocada na heap
+	return (create_token(str, WORD)); 
+	// create_token("ls", WORD); não pode ser feito, pois ls nao é uma strig alocada na heap
 }
+// retorna um token
 
+void	add_token(t_token **list, t_token *new_token)
+{
+	t_token	*tmp;
+
+	if (!*list)
+	{
+		*list = new_token;
+		return ;
+	}
+	tmp = *list;
+
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = new_token;
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 23:15:18 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/06 15:47:05 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/10 00:49:10 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,29 +73,31 @@ t_token *tokenize_command(char *cmd)
 	int				i;
 	t_token			*head;
 	t_token			*new_token;
-
 	i = 0;
+	head = NULL;
 	while (cmd[i])
 	{                                                                                                                                                                                        
 		if ((cmd[i] == '<' || cmd[i] == '>') && !is_in_quotes(cmd, i))
-			new_token = read_redirection_token();
-			
-		else if (cmd[i] == 32 && !is_in_quotes(cmd, i))
+			new_token = read_redirection_token();			
+		else if (cmd[i] == ' ' && !is_in_quotes(cmd, i))
+		{
 			i++;
+			continue;
+		}
 		else 
-			new_token= read_word_token(&head, cmd, &i);
+			new_token= read_word_token(cmd, &i);
 		if (!new_token)
 		{
-			free_tokens();
-			return ()
+			free_tokens(&head);
+			return (NULL);
 		}
+		add_token(&head, new_token);
 	}
-
 		return (head);
 }
 // criar e ligar tokens e retornar pointer para o topo dos tokens
 
-t_commands *create_command(char *cmd, t_env *env) 
+t_commands *create_command(char *cmd, t_env *env)
 {
 	t_commands *command;
 	t_token *head;
@@ -105,7 +107,8 @@ t_commands *create_command(char *cmd, t_env *env)
 	if (!command)
 		return (NULL);
 	command->env = env;
-	command->token = tokenize_command(cmd);
+	command->token = tokenize_command(cmd); // cria lista de tokens (retorna pointer para a head da lista q vai ficar guardada em commands->tokens)
+	
 	if (!command->token)
 	{
 		erro
@@ -113,3 +116,4 @@ t_commands *create_command(char *cmd, t_env *env)
 	
 	command->next = NULL;
 }
+// retorna node de t_commands

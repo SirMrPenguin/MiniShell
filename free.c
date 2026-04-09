@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 02:13:27 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/07 11:13:16 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/09 19:58:40 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	free_tokens(t_token **token)
 		current = (*token)->next;
 		free((*token)->content);
 		free(*token);
-	    *token = current; // no fim, o pointer q originalmente apontava para a head da lista, passa a ser NULL (dangling pointer)
+	    *token = current; 
+		// no fim, o pointer q originalmente apontava para a head da lista, passa a ser NULL (dangling pointer)
 	}
 }
