@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_input_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 02:22:04 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/02 03:41:31 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/04 22:17:58 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,17 @@ bool	check_redirections_pipes(char *line)
 	if (!is_redir_valid(line))
 		return (false);
 	return (true);
+}
+
+void	tab_to_space(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '\t' && !is_in_quotes(line, i))
+			line[i] = ' ';
+		i++;
+	}
 }

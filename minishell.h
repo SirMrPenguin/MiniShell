@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:46:05 by joabotel          #+#    #+#             */
-/*   Updated: 2026/04/02 02:50:46 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/07 11:11:44 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@
 
 typedef enum s_type
 {
-	PIPE,
-	COMMAND, //ls, grep, cat
+	//PIPE,
+	WORD, //ls, grep, cat
 	OPTION, // -n, -l
 	FILES, // file.txt
 	REDIR_IN, // <
@@ -84,6 +84,12 @@ typedef struct s_var
 	char	*new;
 } t_var;
 
+typedef struct s_quote_status
+{
+	bool	in_sq;
+	bool	in_dq;
+} t_quote_status
+
 void	minishell(char **envp);
 
 // BUILTINS
@@ -100,6 +106,7 @@ int		ft_len_till_equal(char *str);
 
 void	free_array(char **array);
 void	clear_env(t_env *env);
+void	free_tokens(t_token **token);
 
 
 //env
@@ -135,13 +142,19 @@ bool	check_redirections_pipes(char *line);
 bool	is_all_redir(char *line);
 bool	is_all_pipe(char *line);
 
-t_commands	*create_command_list(char *line);
+t_commands	*create_command_list(char *cmd, t_env *env);
 char		**split_commands(char *line);
 int 		count_pipes(char *line); // conta pipes fora de aspas
 int			count_char (int begin, int end); // conta char entre 2 pos 
 void		copy_command(char *array, char *line, int begin, int len);
 int			copy_command_array(char *line, char **command_array, t_var v);
 
+t_commands	*create_command(char *cmd, t_env *env);
+t_token		*tokenize_command(char *cmd);
+
+void	update_quotes(char c, t_quote_status *status);
+t_token	*read_word_token(t_token **head, char	*cmd, int *i);
+t_token	*create_token(char	*str, int type);
 
 
 

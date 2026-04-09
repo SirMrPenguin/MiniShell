@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:41:42 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/02 03:24:27 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/05 01:27:35 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,45 +33,34 @@ bool	check_input(char **line, t_env   *env) // env para free(env) em caso de err
 		return (false); */ //verificar se é necessário, pois se a linha for vazia não chega aqui
 	if (!check_redirections_pipes(line)) // verifica só redir/pipe e se tem reditr no fim e pipe no inicio/fim + rdir invalidas
 		return (false);
-
 }
-  
-char	**split_commands(char *line) // separa a linha pelos pipes (fora de aspas)
+
+t_commands	*create_command_list(char *cmd, t_env *env)
 {
-	t_var	v;
-	int		pipes;
-	char	**command_array;
+	int			i;
+	char		**commands_split;
+	t_commands	*commands;
+	t_commands	*current;
 	
-	init_var(&v);
-	pipes = count_pipes(line);
-	command_array = calloc(pipes + 2, sizeof(char*));
-	if (!command_array)
-		return (NULL);
-	if (!copy_command_array(line, command_array, v))
-		return (NULL);	
-	return (command_array);
-}
-
-
-
-t_commands	*create_command_list(char *line)
-{
-	int	i;
-	char	**commands_split ;
 
 	i = 0;
-	commands_split = split_commands(line); // separar commands pela 
+	commands_split = split_commands(cmd); // separar commands pela 
 	if (!commands_split)
 		return (NULL);
 	while (commands_split[i])
 		trim_spaces(&commands_split[i++]); // tirar espacos na ponta
-
+		commands = create_command(commands_split, env);
+		
+	current = commands;
+	i = 0;
+	while (commands_split[++i])
+	{
+		current->next = create_command(commands_split[i], env);
+		current = current->next;
+	}
 	
-
-	free_array(commands_split);
+	return (free_array(commands_split), commands);
 }
-
-
 
 bool	parse(char *command_line, t_env *env, t_commands **commands)
 {
@@ -79,7 +68,8 @@ bool	parse(char *command_line, t_env *env, t_commands **commands)
     
 	if (!check_input(&command_line, env))
 		return (clear_env(env), false); // é p libertar? o readline continua
-	*commands = create_command_list(command_line); // verificar return das funcoes 
+	*commands = create_command_list(command_line); // verificar return das funcoes &&
+	// retorna o pointer para a head da lista de comandos
 	
 	
 }

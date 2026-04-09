@@ -3,42 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 23:15:18 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/02 02:55:43 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/06 15:47:05 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int count_pipes(char *line)  
+void copy_command(char *array, char *line, int begin, int len)
 {
-    int i;
-    int counter;
-    
-    i = 0;
-	counter = 0;
-    while (line[i])
-	{
-		if (line[i] == '|' && !is_in_quotes(line, i))
-			counter++;
-		i++;
-	}
-	return (counter);
-}
-
-int	count_char (int begin, int end)
-{
-	if (end < begin)
-		return (0);
-	return (end - begin);
-}
-
-void	copy_command(char *array, char *line, int begin, int len)
-{
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	i = 0;
 	if (line[begin] == '|') // verificar se necessario
@@ -49,13 +26,13 @@ void	copy_command(char *array, char *line, int begin, int len)
 	array[i] = '\0';
 }
 
-int	copy_command_array(char *line, char **command_array, t_var v)
+int copy_command_array(char *line, char **command_array, t_var v)
 {
 	while (line[v.i])
 	{
 		v.begin = v.i;
-		while (line[v.i] && line[v.i] != '|' || 
-				(line[v.i] == '|' && is_in_quotes(line, v.i)))
+		while (line[v.i] && line[v.i] != '|' ||
+			   (line[v.i] == '|' && is_in_quotes(line, v.i)))
 			v.i++;
 		v.end = v.i;
 		v.len = count_char(v.begin, v.end);
@@ -74,13 +51,65 @@ int	copy_command_array(char *line, char **command_array, t_var v)
 	return (1);
 }
 
-
-/* 
-int main (int ac, char **av)
+char **split_commands(char *line)
 {
-	(void)ac;
+	t_var v;
+	int pipes;
+	char **command_array;
 
-	int pipes = count_pipes(av[1]);
+	init_var(&v);
+	pipes = count_pipes(line);
+	command_array = calloc(pipes + 2, sizeof(char *));
+	if (!command_array)
+		return (NULL);
+	if (!copy_command_array(line, command_array, v))
+		return (NULL);
+	return (command_array);
+}
+// separa a linha pelos pipes (fora de aspas)
 
-	printf("pipes em %s = %d\n", av[1], pipes);
-} */
+t_token *tokenize_command(char *cmd)
+{
+	int				i;
+	t_token			*head;
+	t_token			*new_token;
+
+	i = 0;
+	while (cmd[i])
+	{                                                                                                                                                                                        
+		if ((cmd[i] == '<' || cmd[i] == '>') && !is_in_quotes(cmd, i))
+			new_token = read_redirection_token();
+			
+		else if (cmd[i] == 32 && !is_in_quotes(cmd, i))
+			i++;
+		else 
+			new_token= read_word_token(&head, cmd, &i);
+		if (!new_token)
+		{
+			free_tokens();
+			return ()
+		}
+	}
+
+		return (head);
+}
+// criar e ligar tokens e retornar pointer para o topo dos tokens
+
+t_commands *create_command(char *cmd, t_env *env) 
+{
+	t_commands *command;
+	t_token *head;
+	t_token *current;
+
+	command = calloc(1, sizeof(t_commands));
+	if (!command)
+		return (NULL);
+	command->env = env;
+	command->token = tokenize_command(cmd);
+	if (!command->token)
+	{
+		erro
+	}
+	
+	command->next = NULL;
+}

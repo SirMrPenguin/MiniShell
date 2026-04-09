@@ -6,7 +6,7 @@
 /*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 02:13:27 by anisabel          #+#    #+#             */
-/*   Updated: 2026/03/31 15:36:09 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/07 11:13:16 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,18 @@ void	clear_env(t_env *env)
 		free(env->value);
 		free (env);
 		env = temp;
+	}
+}
+
+void	free_tokens(t_token **token)
+{
+	t_token	*current;
+	
+	while (*token)
+	{
+		current = (*token)->next;
+		free((*token)->content);
+		free(*token);
+	    *token = current; // no fim, o pointer q originalmente apontava para a head da lista, passa a ser NULL (dangling pointer)
 	}
 }

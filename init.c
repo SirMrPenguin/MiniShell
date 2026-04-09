@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/01 16:03:40 by mefische          #+#    #+#             */
-/*   Updated: 2026/04/07 10:59:09 by anisabel         ###   ########.fr       */
+/*   Created: 2026/04/04 22:25:09 by anisabel          #+#    #+#             */
+/*   Updated: 2026/04/05 01:20:38 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+void	init_var(t_var *var)
 {
-	t_list	*temp;
+	var->i = 0;
+	var->j = 0;
+	var->len = 0;
+	var->new = NULL;
+	var->begin = 0;
+	var->end = 0;
+}
 
-	while (*lst)
-	{
-		temp = (*lst)->next;
-		ft_lstdelone(*lst, del);
-		*lst = temp;
-	}
+void	init_token_null(t_token	*token)
+{
+		
 }
