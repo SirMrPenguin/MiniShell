@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 23:15:18 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/10 00:49:10 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/10 13:50:15 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_token *tokenize_command(char *cmd)
 	while (cmd[i])
 	{                                                                                                                                                                                        
 		if ((cmd[i] == '<' || cmd[i] == '>') && !is_in_quotes(cmd, i))
-			new_token = read_redirection_token();			
+			new_token = read_redirection_token(cmd, &i);			
 		else if (cmd[i] == ' ' && !is_in_quotes(cmd, i))
 		{
 			i++;

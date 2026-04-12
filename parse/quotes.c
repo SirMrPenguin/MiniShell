@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 23:55:03 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/01 23:49:05 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/10 14:10:13 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,12 @@ bool	is_in_quotes(char *str, int pos)
 	if (in_sq || in_dq)
 		return (true);
 	return (false);
+}
+
+void	update_quotes(char c, t_quote_status *status)
+{
+	if (c == SQ && !status->in_dq)
+		status->in_sq = !status->in_sq;
+	if (c == DQ && !status->in_sq)
+		status->in_dq = !status->in_dq;
 }
