@@ -6,7 +6,7 @@
 /*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:46:05 by joabotel          #+#    #+#             */
-/*   Updated: 2026/04/10 14:17:46 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/13 01:04:42 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ int 		count_pipes(char *line); // conta pipes fora de aspas
 int			count_char (int begin, int end); // conta char entre 2 pos 
 void		copy_command(char *array, char *line, int begin, int len);
 int			copy_command_array(char *line, char **command_array, t_var v);
+bool		has_content(char *line, int begin, int end);
 
 t_commands	*create_command(char *cmd, t_env *env);
 t_token		*tokenize_command(char *cmd);

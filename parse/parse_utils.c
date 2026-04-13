@@ -6,7 +6,7 @@
 /*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:46:38 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/04 22:26:58 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/13 01:06:13 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ int count_pipes(char *line)
 	return (counter);
 }
 
-int	count_char (int begin, int end)
+/* int	count_char (int begin, int end)
 {
 	if (end < begin)
 		return (0);
 	return (end - begin);
-}
+} */

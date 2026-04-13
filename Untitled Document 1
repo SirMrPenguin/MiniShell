@@ -37,11 +37,69 @@ Q&A DA BURRA
 ---------------------
 
 
+O que já está visto no check_input
+
+check_input()
+
+- readlne devolveu NULL -> saída do shell
+- linha vazia ""
+- quotes não fechadas
+- tabs fora de aspas viram espaços
+- linha só com espaços
+- normalização de espaços
+- Checks iniciais de pipes/check_redirections_pipes (mas falta verificar se se aplica em aspas)
+
+- falta return(true)
+- terminar !*line - tem que sair da função ou do programa
+------------------------------------------
+
+closed_quotes() - ' só alterna fora de ", " só alterna fora de '
+
+is_all_redir()
+
+- apanha linhas que só têm > ou < fora de aspas
+	>>>, << >>, "<<<" não conta como redirection real
+
+
+is_redir_valid
+
+cobre bem casos fora de aspas
+
+- <<<
+- >>>
+- <>
+- ><
+- >|
+- <|
+- |>
+- |<
+
+------------------------------------
+
+remove_extra_spaces() não respeitam aspas
+
+only_one_space() não respeitam aspas
 
 
 
 
+------------------------------------
 
+count_chars_one_space()
+
+trim_spaces() se estiveres a tirar espaços nas pontas de uma string que 
+afinal são parte de quotes internas não há problema, mas se a linha for 
+algo como " a" isso continua válido porque os espaços estão dentro da string, 
+não no início real da linha. O problema maior está mesmo em only_one_space() e no contador.
+
+------------------------------------
+
+check_redirections_pipes()
+
+- faz mais sentido verificar pipes no split do comando, ao separar por |, consegues
+perceber se algum comando ficou vazio
+
+exemplo: ls | | wc - verificar se fica algum comando vazio entre pipes 
 
 
 
