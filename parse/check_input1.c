@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_input1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 02:22:04 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/10 23:05:44 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/13 20:49:36 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ bool	is_all_pipe(char *line)
 	return (false);
 }
 
-bool	is_pipe_valid(char *line, int i, int count)
+bool	is_pipe_valid(char *line, int i, int count) // <| 
 {
 	if (line[i + count] && line[i + count] == '|' 
 			&& !is_in_quotes(line, i + count))
@@ -85,7 +85,7 @@ bool	is_redir_valid(char *line)
 			i++;
 		else if (line[i] == '>' || line[i] == '<')
 		{
-			count = 1;
+			count = 1; // quantos char iguais existem
 			while (line[i + count] && line[i + count] == line[i] 
 					&& !is_in_quotes(line, i + count))
 				count++;

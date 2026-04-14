@@ -47,43 +47,124 @@ check_input()
 - tabs fora de aspas viram espaços
 - linha só com espaços
 - normalização de espaços
-- Checks iniciais de pipes/check_redirections_pipes (mas falta verificar se se aplica em aspas)
+- Checks iniciais de sintaxe geral
+	- só redir
+	- so pipes
+	- pipe no fim
+	- pipe no ínicio
+	- redirections inválidas
+		- <<<
+		- >>>
+		- <>
+		- ><
+	- pipes colados a redirs
+		- >|
+		- <|
+		- |<
+		- |>
 
 - falta return(true)
 - terminar !*line - tem que sair da função ou do programa
 ------------------------------------------
 
-closed_quotes() - ' só alterna fora de ", " só alterna fora de '
+split_commands() / copy_command_array()
 
-is_all_redir()
+- split é feito por pipes fora de aspas
+- verifica se existem segmentos vazios ou só espacos entre pipes
 
-- apanha linhas que só têm > ou < fora de aspas
-	>>>, << >>, "<<<" não conta como redirection real
+- ls ||  wc
+- ls | | wc
 
+combinado com o check no início:
 
-is_redir_valid
+- | ls
+- ls |
 
-cobre bem casos fora de aspas
+----------------------------------------
 
-- <<<
-- >>>
-- <>
-- ><
-- >|
-- <|
-- |>
-- |<
+1. (....) < | (....)
 
-------------------------------------
+É sempre inválido. O lado esquerdo fica (....) <, e o < precisa de 
+um ficheiro/word a seguir 
 
-remove_extra_spaces() não respeitam aspas
-
-only_one_space() não respeitam aspas
+DEPOIS do tokenizer:
+ - se o token é REDIR_IN, o próximo tem de existir e ser WORD
 
 
+2. (....) > | (....)
+
+É sempre inválido. O lado esquerdo fica (....) >, e o > precisa de um target a seguir:
+
+	echo hi > outfile
+
+	
+Validar DEPOIS do tokenizer
+
+3. (....) | > (....)
+
+- válido em shell
+- o comando 2 só tem redirection, sem nome de comando
+- válido desde que > tenha argumento 
+
+	cat | > out
+
+TOKEN de comando 2
+	- REDIR_OUT (">")
+	- WORD ("out")
+
+É um comando vazio com redirection, o stdout desse comando vai para out
 
 
-------------------------------------
+4. (....) | < (....)
+
+- é válido
+- o pipe liga o stdout do comando 1 ao stdin comando 2
+- depois o comando 2 redireciona o stdin para infile
+
+----------------------------------------
+
+VALIDATE TOKENS
+
+- verificar redirections sem argumentos (REDIRIN, REDIRIN2, REDIROUT, REDIROUT2)
+
+Exemplos:
+
+- cmd <
+- cmd >
+- cmd < | other
+- cmd > | other
+- cmd | <
+- cmd | >
+
+Aceita:
+
+- cmd | < file
+- cmd | > file 
+
+RESUMO:
+
+uma redirection no final do comando à esquerda do pipe é SEMPRE inválido, enquanto uma redirection a seguir ao pipe (à direita) é válido se existir argumento a seguir ao redirection
+
+- o mesmo com << e >>
+
+	cat | << EOF
+
+
+-------------------------------------------
+
+HEREDOC
+
+cat << EOF
+hello
+world
+EOF
+
+- o cat vai receber input do stdin
+- em vez de vir do teclado ou ficheiro, vem de um bloco de texto
+- esse bloco acaba quando EOF é escrito (igual de delimiter)
+- << EOF cria um "stdin falso"
+
+
 
 count_chars_one_space()
 
@@ -100,6 +181,14 @@ check_redirections_pipes()
 perceber se algum comando ficou vazio
 
 exemplo: ls | | wc - verificar se fica algum comando vazio entre pipes 
+
+também já cobre 
+
+- ls | undo segmento nunca entra no while (line[v.i]), por isso este caso não é apanhado aqui sozinho.
+- |  ls
+- ls |
+- ls | | cat
+- ls || wc
 
 
 

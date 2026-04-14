@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:41:42 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/13 01:08:39 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/13 21:09:01 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ bool	check_input(char **line, t_env   *env) // env para free(env) em caso de err
 		return (false); */ //verificar se é necessário, pois se a linha for vazia não chega aqui
 	if (!check_redirections_pipes(*line)) // verifica só redir/pipe e se tem reditr no fim e pipe no inicio/fim + rdir invalidas
 		return (false);
+	return (true);
 }
 
 !!!!!!!!!!!!!!!!! verificar se espaços em aspas em check_input !!!!!!!!!!!;
@@ -69,7 +70,7 @@ bool	parse(char *command_line, t_env *env, t_commands **commands)
     
 	if (!check_input(&command_line, env))
 		return (clear_env(env), false); // é p libertar? o readline continua
-	*commands = create_command_list(command_line); 
+	*commands = create_command_list(command_line, env); 
 		// verificar return das funcoes &&
 		// retorna o pointer para a head da lista de comandos
 	

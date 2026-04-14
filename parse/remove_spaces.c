@@ -6,7 +6,7 @@
 /*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 00:35:07 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/02 03:04:27 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/13 22:37:46 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,24 @@ void trim_spaces(char **line)
 	*line = new;
 }
 
-void only_one_space(char **line, char **new, t_var v)
+void only_one_space(char **line, char **new, t_var v, t_quote_status status)
 {
-	bool	in_space;
+	bool			in_space;
 	
 	in_space = false;
 	while ((*line)[v.i])
 	{
-		if ((*line)[v.i] == ' ')
-		{
-			if (in_space)
-			{
-				v.i++;
-				continue;		
-			}
-			in_space = true;
+		update_quotes((*line[v.i]), &status);
+		if ((status.in_dq || status.in_sq) && line[v.i] == ' ')
 			(*new)[v.j++] = (*line)[v.i++];
+		else if (!(status.in_dq || status.in_sq) && (*line)[v.i] == ' ')
+		{
+			if (!in_space)
+			{
+				(*new)[v.j++] = (*line)[v.i];
+				in_space = true;
+			}
+			v.i++;
 		}
 		else
 		{
@@ -86,12 +88,14 @@ void	remove_extra_spaces(char **line)
 {
 	t_var	v;
 	char *new;
-	bool in_space;
-
+	t_quote_status	status;
+	
+	status.in_dq = false;
+	status.in_sq = false;
 	init_var(&v);
 	trim_spaces(line); // antes de alocar memória 
 	new = calloc(count_chars_one_space(*line) + 1, sizeof(char));
 	if (!new)
 		return ;
-	only_one_space(line, &new, v);
+	only_one_space(line, &new, v, status);
 }

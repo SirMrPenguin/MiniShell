@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 23:15:18 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/13 01:10:37 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/13 22:14:49 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void copy_command(char *array, char *line, int begin, int len)
 	int j;
 
 	i = 0;
-	if (line[begin] == '|') // verificar se necessario
-		begin++;
+/* 	if (line[begin] == '|') // verificar se necessario
+		begin++; */
 	j = begin + len;
 	while (line[begin] && begin < j)
 		array[i++] = line[begin++];
@@ -42,22 +42,17 @@ int copy_command_array(char *line, char **command_array, t_var v)
 	while (line[v.i])
 	{
 		v.begin = v.i;
-		while (line[v.i] && line[v.i] != '|' ||
+		while ((line[v.i] && line[v.i] != '|') ||
 			   (line[v.i] == '|' && is_in_quotes(line, v.i)))
 			v.i++;
 		v.end = v.i;
-		if (!has_content(line, v.begin, v.end))
-		{
-			free_array(command_array);
-			return (0);
-		}
-		v.len = v.begin - v.end;
+		if (!has_content(line, v.begin, v.end)) // pipes seguidos
+			return (free_array(command_array), 0);
+		v.len = v.end - v.begin;
 		command_array[v.j] = calloc(v.len + 1, sizeof(char));
 		if (!command_array[v.j])
-		{
-			free_array(command_array);
-			return 0;
-		}
+			return (free_array(command_array), 0);
+
 		copy_command(command_array[v.j], line, v.begin, v.len);
 		v.j++;
 		if (line[v.i] == '|')

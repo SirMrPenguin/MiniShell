@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:46:05 by joabotel          #+#    #+#             */
-/*   Updated: 2026/04/13 01:04:42 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/13 22:07:12 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,11 +124,12 @@ bool		closed_quotes(char *line);
 
 void		tab_to_space(char *line);
 bool		is_in_quotes(char *str, int pos);
+void		update_quotes(char c, t_quote_status *status);
 
 bool		empty_line(char *line);
 
 void		remove_extra_spaces(char **line);
-void		only_one_space(char **line, char **new, t_var v);
+void		only_one_space(char **line, char **new, t_var v, t_quote_status status);
 void		trim_spaces(char **line);
 
 
@@ -143,7 +144,7 @@ bool		is_all_pipe(char *line);
 t_commands	*create_command_list(char *cmd, t_env *env);
 char		**split_commands(char *line);
 int 		count_pipes(char *line); // conta pipes fora de aspas
-int			count_char (int begin, int end); // conta char entre 2 pos 
+// int			count_char (int begin, int end); // conta char entre 2 pos 
 void		copy_command(char *array, char *line, int begin, int len);
 int			copy_command_array(char *line, char **command_array, t_var v);
 bool		has_content(char *line, int begin, int end);
