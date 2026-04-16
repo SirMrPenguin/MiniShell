@@ -164,6 +164,70 @@ EOF
 - esse bloco acaba quando EOF é escrito (igual de delimiter)
 - << EOF cria um "stdin falso"
 
+O shell cria um ficheiro temporário "invisível", com o conteúdo
+
+hello
+world
+
+e depois passaasse ao cat como entrada standard.
+
+O heredoc entra em 3 fases 
+
+PARSER:
+
+- Reconhecer que existe << e guardar o delimiter
+
+WORD - cat
+REDIR_IN2 - <<
+WORD - EOF
+
+Ao existir <<, não só tem que existir um token a seguir, como deve ser WORD.
+
+O conteúdo ainda não é lido!
+
+ANTES DA EXECUÇÃO
+
+- Antes de executar o comando, temos de:
+	~ Pedir ao user as linhas do heredoc - readline ("> ")
+	~ Guardar as linhas
+	~ Preparar um fd que vai servir de stdin
+
+EXECUÇÃO
+
+Ao executar o comando:
+	~ ligar o fd do heredoc ao STDIN_FILENO
+	~ depois chamar execve
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+typedef	struct	s_redir
+{
+	int					type;
+	char				*file;
+	struct s_redir		*next;
+} t_redir;
+
+Serve para representar todos os redir de um COMANDO 
+	- aplicam-se os redir pela ordem que aparecem
+	- o último redirection de stdin/stdout é o que fica ativo
+
+					ex: cat < infile > outfile >> log
+
+					cat - comando a correr
+					< infile - redireciona o stdin de cat (teclado), lê de infile
+					> outfile - redireciona o output para outfile 
+							- se existir outfile, é "esvaziado" primeiro
+							- se não existir, é criado 
+					>> log - redireciona o stdout outra vez para log, em modo append
+							- se log não existir, é criado
+							- se existir, escreve no fim
+
+type = que tipo de redir é
+file = o argumento do redirection 
+next = permite ter vários redirections
+	
+
+
 
 
 count_chars_one_space()

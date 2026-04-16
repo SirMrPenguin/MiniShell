@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:46:05 by joabotel          #+#    #+#             */
-/*   Updated: 2026/04/13 22:07:12 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/15 23:09:29 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,13 @@ typedef struct s_command
 	t_token			*token;
 	t_commands		*next;
 } t_commands;
+
+typedef struct s_redir
+{
+	int					type;
+	char				*file;
+	struct s_redir		*next;
+} t_redir;
 
 typedef struct s_env
 {
@@ -156,6 +163,9 @@ void		update_quotes(char c, t_quote_status *status);
 t_token		*read_word_token(char	*cmd, int *i);
 t_token		*create_token(char	*str, int type);
 void		add_token(t_token **list, t_token *new_token);
+
+bool	validate_tokens(t_token *token);
+
 
 
 

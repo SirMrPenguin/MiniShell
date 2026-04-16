@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 02:13:27 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/09 19:58:40 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/15 23:07:59 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,3 +56,8 @@ void	free_tokens(t_token **token)
 		// no fim, o pointer q originalmente apontava para a head da lista, passa a ser NULL (dangling pointer)
 	}
 }
+
+
+free_command
+
+free_command_list

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 23:15:18 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/13 22:14:49 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/15 23:21:05 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,13 +118,19 @@ t_commands *create_command(char *cmd, t_env *env)
 	if (!command)
 		return (NULL);
 	command->env = env;
-	command->token = tokenize_command(cmd); // cria lista de tokens (retorna pointer para a head da lista q vai ficar guardada em commands->tokens)
-
+	command->token = tokenize_command(cmd); 
+	// cria lista de tokens (retorna pointer para a head da lista q vai ficar guardada em commands->tokens)
 	if (!command->token)
 	{
-		erro
+		função para libertar t_commands ( +  tokens);
+		return (NULL);
 	}
-
+	if (!validate_tokens(command->token))
+	{
+		função para libertar t_commands ( +  tokens);
+		return (NULL);
+	}
+	if ()
 	command->next = NULL;
 }
 // retorna node de t_commands
