@@ -6,7 +6,7 @@
 /*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 23:08:23 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/17 04:20:20 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/17 05:06:34 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ bool	build_redir(t_commands *command)
 	tmp = command->token;
 	while (tmp)
 	{
-		if (is_redir_type(tmp->type))
+		if (is_redir_type(tmp))
 		{
 			new = new_redir(tmp->type, tmp->next->content);
 			if (!new)

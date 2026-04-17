@@ -6,7 +6,7 @@
 /*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 04:17:56 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/17 04:52:11 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/17 05:14:42 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,20 @@
 
 int	count_args(t_token *token)
 {
-	
+	int		counter;
+	t_token	*tmp;
+
+	counter = 0;
+	tmp = token;
+	while (tmp)
+	{
+		if (tmp->type == WORD)
+			counter++;
+		if (is_redir_type(tmp))
+			tmp = tmp->next;
+		tmp = tmp->next;			
+	}
+	return (counter);
 }
 
 void	build_argv(t_commands *command)
@@ -22,9 +35,10 @@ void	build_argv(t_commands *command)
 	t_token		*tmp;
 
 	command->arg = NULL;
-	command->arg = calloc(1, sizeof(char**));
+	command->arg = calloc(count_args(tmp) + 1, sizeof(char*));
 	if (!command->arg)
 		return ;
+	
 	
 	
 
