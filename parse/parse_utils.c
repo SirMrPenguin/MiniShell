@@ -6,7 +6,7 @@
 /*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 19:46:38 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/13 22:13:10 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/16 23:36:22 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,3 @@ int count_pipes(char *line)
 		return (0);
 	return (end - begin);
 } */
-
-
-
-
-c 1 - ls
-
-
-ls | cat  < sjnkda | wc

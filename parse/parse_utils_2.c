@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 23:15:18 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/15 23:21:05 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/17 04:40:17 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,10 @@ t_token *tokenize_command(char *cmd)
 
 t_commands *create_command(char *cmd, t_env *env)
 {
-	t_commands *command;
-	t_token *head;
-	t_token *current;
+	t_commands	*command;
+	t_token 	*head;
+	t_token 	*current;
+	char		**args;
 
 	command = calloc(1, sizeof(t_commands));
 	if (!command)
@@ -122,15 +123,20 @@ t_commands *create_command(char *cmd, t_env *env)
 	// cria lista de tokens (retorna pointer para a head da lista q vai ficar guardada em commands->tokens)
 	if (!command->token)
 	{
-		função para libertar t_commands ( +  tokens);
+		//função para libertar t_commands ( +  tokens);
 		return (NULL);
 	}
 	if (!validate_tokens(command->token))
 	{
-		função para libertar t_commands ( +  tokens);
+		//função para libertar t_commands ( +  tokens);
 		return (NULL);
 	}
-	if ()
+	if (!build_redir(command->token))
+	{
+		free_all(); // free commands, argv e redirs
+		return (NULL);
+	}
+	if (!build_argv())
 	command->next = NULL;
 }
 // retorna node de t_commands

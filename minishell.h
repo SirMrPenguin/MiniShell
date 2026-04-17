@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:46:05 by joabotel          #+#    #+#             */
-/*   Updated: 2026/04/15 23:09:29 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/17 03:58:34 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,22 +54,24 @@ typedef enum s_type
 
 typedef struct s_token
 {
-	char	*content;
-	t_type	type;
-	t_token	*next;
+	char			*content;
+	t_type			type;
+	t_token			*next;
 } t_token;
 
 typedef struct s_command
 {
+	char 			**arg;
 	t_env			*env;
 	t_token			*token;
+	t_redir			*redir;
 	t_commands		*next;
 } t_commands;
 
 typedef struct s_redir
 {
 	int					type;
-	char				*file;
+	char				*content;
 	struct s_redir		*next;
 } t_redir;
 
@@ -164,8 +166,10 @@ t_token		*read_word_token(char	*cmd, int *i);
 t_token		*create_token(char	*str, int type);
 void		add_token(t_token **list, t_token *new_token);
 
-bool	validate_tokens(t_token *token);
-
+bool		validate_tokens(t_token *token);
+bool		build_redir(t_commands *command);
+void		add_redir(t_redir *list, t_redir *new);
+t_redir		*new_redir(t_type type, char *content);
 
 
 
