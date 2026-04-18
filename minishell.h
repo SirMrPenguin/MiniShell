@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:46:05 by joabotel          #+#    #+#             */
-/*   Updated: 2026/04/17 05:05:32 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/18 01:00:27 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,8 @@ bool		validate_tokens(t_token *token);
 bool		build_redir(t_commands *command) ;
 void		add_redir(t_redir *list, t_redir  *new);
 t_redir		*new_redir(t_type type, char *content);
-bool		is_redir_type(t_token *token)
+bool		is_redir_type(t_token *token);
+bool		build_argv(t_commands *command);
 
 
 

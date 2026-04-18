@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 23:15:18 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/17 04:40:17 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/18 23:55:30 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,12 +131,14 @@ t_commands *create_command(char *cmd, t_env *env)
 		//função para libertar t_commands ( +  tokens);
 		return (NULL);
 	}
-	if (!build_redir(command->token))
+	if (!build_redir(command))
 	{
 		free_all(); // free commands, argv e redirs
 		return (NULL);
 	}
-	if (!build_argv())
+	if (!build_argv(command))
 	command->next = NULL;
+	return (command);
+	// libertar lista de tokens??
 }
 // retorna node de t_commands

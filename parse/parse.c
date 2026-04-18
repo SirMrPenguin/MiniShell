@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 11:41:42 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/13 21:09:01 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/18 23:56:27 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,6 @@ bool	check_input(char **line, t_env   *env) // env para free(env) em caso de err
 		return (false);
 	return (true);
 }
-
-!!!!!!!!!!!!!!!!! verificar se espaços em aspas em check_input !!!!!!!!!!!;
-
 t_commands	*create_command_list(char *cmd, t_env *env)
 {
 	int			i;

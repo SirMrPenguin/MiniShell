@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils_5.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 04:17:56 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/17 05:14:42 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/18 23:06:49 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,52 +21,66 @@ int	count_args(t_token *token)
 	tmp = token;
 	while (tmp)
 	{
-		if (tmp->type == WORD)
-			counter++;
 		if (is_redir_type(tmp))
+		{
 			tmp = tmp->next;
-		tmp = tmp->next;			
+			if (tmp)
+				tmp = tmp->next;
+		}
+		else
+		{
+			if (tmp->type == WORD)
+				counter++;
+			tmp = tmp->next;			
+		} 
 	}
 	return (counter);
 }
 
-void	build_argv(t_commands *command)
+t_token	*skip_redir_and_target(t_token *tmp)
 {
-	t_token		*tmp;
-
-	command->arg = NULL;
-	command->arg = calloc(count_args(tmp) + 1, sizeof(char*));
-	if (!command->arg)
-		return ;
-	
-	
-	
-
+	if (!tmp)
+		return (NULL);
+	tmp = tmp->next;
+	if (tmp)
+		tmp = tmp->next;
+	return (tmp);
 }
 
-bool	build_redir(t_commands *command)
+bool	add_word_to_argv(char **argv, char *word, int *i)
 {
-	t_token		*tmp;
-	t_redir		*new;
-
-	command->redir = NULL;
-	tmp = command->token;
-	while (tmp) 
-	{
-		if (is_redir_type(tmp->type))
-		{
-			new = new_redir(tmp->type, tmp->next->content);
-			if (!new)
-			{
-				free_redirs(); //!!!!!!!!!!!!!!
-				return (false);
-			}
-			add_redir(&command->redir, new);
-			tmp = tmp->next;
-		}
-		tmp = tmp->next;
-	}
+	argv[*i] = ft_strdup(word);
+	if (!argv[*i])
+		return (false);
+	(*i)++;
 	return (true);
 }
+
+bool	build_argv(t_commands *command)
+{
+	int	i;
+	t_token		*tmp;
+
+	i = 0;
+	tmp = command->token;
+	command->arg = calloc(count_args(tmp) + 1, sizeof(char*));
+	if (!command->arg)
+		return (false);
+	while (tmp)
+	{
+		if (is_redir_type(tmp))
+			tmp = skip_redir_and_target(tmp);
+		else
+		{
+			if (tmp->type == WORD && !add_word_to_argv(command->arg, tmp->content, &i))
+				return (free_argv(), false);// funcao free do argv ja construido ;; !!! dangling pointers
+			tmp = tmp->next;
+		}
+	}
+	command->arg[i] = NULL;
+	return (true);
+}
+
+
 
 
