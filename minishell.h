@@ -6,7 +6,7 @@
 /*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:46:05 by joabotel          #+#    #+#             */
-/*   Updated: 2026/04/19 02:53:18 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/19 03:10:14 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,6 @@ typedef enum s_type
 	IGNORE		// tokens a ser ignorados = espaços, strings vazias, quotes tratadas (???)
 } t_type;
 
-typedef struct s_token t_token;
-typedef struct s_command t_command;
-typedef struct s_redir t_redir;
-typedef struct s_env t_env;
-
 typedef struct s_token
 {
 	char *content;
@@ -64,20 +59,20 @@ typedef struct s_token
 	t_token *next;
 } t_token;
 
-typedef struct s_command
+typedef struct s_commands
 {
 	char **arg;
 	t_env *env;
 	t_token *token;
 	t_redir *redir;
-	t_command *next;
+	t_commands *next;
 } t_commands;
 
 typedef struct s_redir
 {
 	int type;
 	char *content;
-	struct s_redir *next;
+	t_redir *next;
 } t_redir;
 
 typedef struct s_env
@@ -178,5 +173,18 @@ bool build_argv(t_commands *command);
 bool add_word_to_argv(char **argv, char *word, int *i);
 t_token *skip_redir_and_target(t_token *tmp);
 int count_args(t_token *token);
+
+
+// executor
+
+
+int	envp_size(t_env *env);
+char	*join_env(t_env *env);
+char	**create_env_array(t_env	*env);
+int	apply_redirections(t_redir *redir);
+int	redir_append(t_redir *redir);
+int	redir_out(t_redir *redir);
+int	redir_in(t_redir *redir);
+
 
 #endif
