@@ -6,7 +6,7 @@
 /*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/19 03:07:53 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/19 03:09:56 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/22 20:23:37 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ int	redir_append(t_redir *redir)
 		return (close(fd), perror("dup2"), 1);
 	close(fd);
 	return (0);
+}
+
+int	redir_heredoc(t_redir *redir)
+{
+	
 }
 
 int	apply_redirections(t_redir *redir)

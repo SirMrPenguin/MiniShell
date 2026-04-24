@@ -6,7 +6,7 @@
 /*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:46:05 by joabotel          #+#    #+#             */
-/*   Updated: 2026/04/19 03:10:14 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/21 15:35:03 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,13 +178,19 @@ int count_args(t_token *token);
 // executor
 
 
-int	envp_size(t_env *env);
+int		apply_redirections(t_redir *redir);
+int		redir_append(t_redir *redir);
+int		redir_out(t_redir *redir);
+int		redir_in(t_redir *redir);
+int		redir_heredoc(t_redir *redir); //!!!!!!!!!!!!
+
+int		envp_size(t_env *env);
 char	*join_env(t_env *env);
 char	**create_env_array(t_env	*env);
-int	apply_redirections(t_redir *redir);
-int	redir_append(t_redir *redir);
-int	redir_out(t_redir *redir);
-int	redir_in(t_redir *redir);
 
+char	*join_path(char *path, char *command);
+char	*find_path(char **paths, char** argv);
+bool	check_access(char *command_path);
+char	*get_command_path(char **argv, char *command, t_env *env);
 
 #endif
