@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/19 03:07:53 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/22 20:23:37 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/24 03:49:51 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ int	redir_append(t_redir *redir)
 	return (0);
 }
 
-int	redir_heredoc(t_redir *redir)
+/* int	redir_heredoc(t_redir *redir)
 {
 	
-}
+} */
 
 int	apply_redirections(t_redir *redir)
 {
