@@ -6,58 +6,99 @@
 /*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 23:58:11 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/24 16:07:08 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/25 03:08:46 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	execute_external(t_commands *command, t_env *env) // core tudo o que nao seja builtin
-{
-	char	**envp;
-	char	*path;
-
-
-	envp = create_env_array(command->env);
-	if (!envp)
-		exit (1); // ??????
-	path = get_command_path(envp, command, env);
-
-	if (!path)
-		exit (127); // não existe
-	
-	execve(path, command->arg, envp);
-	exit(126); // existe mas falha
-}
-
-
 /*
 Executa um único comando; se for builtin, executa em parent, 
 os restantes executa num child
 */
-int	execute_single_command(t_commands *command, t_env **env)
+int	execute_single_command(t_commands *cmd, t_env **env)
 {
 	pid_t	pid;
 	int		status;
 	
-	if (!command || !command->arg || !command->arg[0])
+	if (!cmd || !cmd->arg || !cmd->arg[0])
 		return (0);
 	
-	if (is_builtin (command->arg[0]))
-		return (execute_builtin_parent(command, env));
-
+	if (is_builtin(cmd->arg[0]) && is_parent_builtin(cmd->arg[0]))
+		return (execute_builtin_parent(cmd, env));
 	pid = fork();
 	if (pid < 0)
 		return (perror("fork"), 1);
-
 	if (pid == 0)
 	{
 		setup_child_signals();
-		if (!apply_redirections(command->redir))
-			exit (1); // exit pq está no child
-		execute_external(command, env);
+		
+		if (apply_redirections(cmd->redir))
+			exit(1);
+		if (is_builtin(cmd->arg[0]))
+			return (execute_builtin_child(cmd, env));
+		execute_external(cmd, *env);
+		exit (0);
 	}
 	waitpid(pid, &status, 0);
 	return (exit_status(status));
 }
+// executa builtin no parent
+int	execute_builtin_parent(t_commands *cmd, t_env **env)
+{
+	int	saved_in;
+	int	saved_out;
+	int	status;
 
+	saved_in = dup(STDIN_FILENO);
+	saved_out = dup(STDOUT_FILENO);
+
+	if (saved_in < 0 || saved_out < 0)
+		return (1);
+	if (apply_redirections(cmd->redir))
+	{
+		dup2(saved_in, STDIN_FILENO);
+		dup2(saved_out, STDOUT_FILENO);
+		close(saved_in);
+		close(saved_out);
+		return (1);
+	}
+	status = builtin_in_parent(cmd, env);
+	dup2(saved_in, STDIN_FILENO);
+	dup2(saved_out, STDOUT_FILENO);
+	close(saved_in);
+	close(saved_out);
+	
+	return (status);
+}
+
+int	execute_builtin_child(t_commands *cmd, t_env **env)
+{
+	int status;
+
+	status = builtin_dispatch(cmd, env);
+	exit (status);
+}
+
+
+
+/* int	wait_all(pid_t last_pid)
+{
+	int	status;
+	int	last_status;
+	int	exit_code;
+	pid_t	pid;
+
+	exit_code = 0;
+	last_status = 0;
+	while ((pid = wait(&status)) > 0)
+	{
+		if (pid == last_pid)
+			last_status = status;
+	}
+	if (WIFEXITED(status))
+		exit_code = (WEXITSTATUS(status));
+	else if (WIFSIGNALED(status))
+		exit_code = (128 + WTERMSIG(status));
+	return (exit_code);
+} */

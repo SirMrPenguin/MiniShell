@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/19 03:08:36 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/21 15:34:13 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/25 01:46:10 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	envp_size(t_env *env)
 	i = 0;
 	while (env)
 	{
-		if (env->visible = 1)
+		if (env->visible == 1)
 			i++;
 		env = env->next;
 	}
@@ -80,13 +80,13 @@ char	*join_path(char *path, char *command)
 	if (!tmp)
 		return (NULL);
 	full = ft_strjoin(tmp, command);
-	if (!path)
+	if (!full)
 		return (free(tmp), NULL);
 	free(tmp);
 	return (full);
 }
 
-char	*find_path(char **paths, char** argv)
+char	*find_path(char **paths, char *command)
 {
 	int	i;
 	char	*command_path;
@@ -94,15 +94,15 @@ char	*find_path(char **paths, char** argv)
 	i = 0;
 	while (paths[i])
 	{
-		*command_path = join_path(paths[i], argv[0]);
-		if (!*command_path)
+		command_path = join_path(paths[i], command);
+		if (!command_path)
 			return(NULL);
-		if (!check_access(command_path))
-			i++;
-		else
-			return (free_array(paths), command_path);
+		if (check_access(command_path))
+			return (command_path);
 		free(command_path);
+		i++;
 	}
+	return (NULL);
 }
 
 bool	check_access(char *command_path)
@@ -113,7 +113,7 @@ bool	check_access(char *command_path)
 }
 
 
-char	*get_command_path(char **argv, char *command, t_env *env)
+char	*get_command_path(char *command, t_env *env)
 {
 	char	**paths;
 	char	*command_path;
@@ -122,7 +122,7 @@ char	*get_command_path(char **argv, char *command, t_env *env)
 		return (NULL);
 	if (ft_strchr(command, '/'))
 	{
-		if (access(command_path, X_OK) == 0)
+		if (access(command, X_OK) == 0)
 			return (ft_strdup(command));
 		return (NULL);
 	}

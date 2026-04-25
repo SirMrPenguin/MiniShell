@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anisabel <anisabel@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 02:13:27 by anisabel          #+#    #+#             */
-/*   Updated: 2026/04/15 23:07:59 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/24 20:04:41 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	free_tokens(t_token **token)
 	}
 }
 
-
+/* 
 free_command
 
-free_command_list
+free_command_list */

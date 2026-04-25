@@ -6,7 +6,7 @@
 /*   By: anisabel <anisabel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:46:05 by joabotel          #+#    #+#             */
-/*   Updated: 2026/04/24 15:46:35 by anisabel         ###   ########.fr       */
+/*   Updated: 2026/04/25 03:12:09 by anisabel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,15 +189,33 @@ char	*join_env(t_env *env);
 char	**create_env_array(t_env	*env);
 
 char	*join_path(char *path, char *command);
-char	*find_path(char **paths, char** argv);
+char	*find_path(char **paths, char *command);
 bool	check_access(char *command_path);
-char	*get_command_path(char **argv, char *command, t_env *env);
+char	*get_command_path(char *command, t_env *env);
 
-int		is_builtin(char *cmd);
+
 void    handler_sigint(int  signal);
 void    setup_child_signals(void);
-void    setup_signals(void);
+void    setup_main_signals(void);
 int		exit_status(int status);
+int		wait_all(pid_t last_pid);
+void	setup_exec_signals(void);
+void	restore_main_signals(void);
+
+
+int	execute_external(t_commands *command, t_env *env);
+int	execute_single_command(t_commands *command, t_env **env);
+void execute_child(t_commands *cmd, t_env *env, int prev_fd, int fd[2]);
+int	execute_multiple_commands(t_commands *cmd, t_env **env);
+int	execute_external_child(t_commands *cmd, t_env **env);
+int	builtin_dispatch(t_commands *cmd, t_env **env);
+int	execute_builtin_parent(t_commands *cmd, t_env **env);
+
+bool	is_builtin(char *cmd);
+bool is_parent_builtin(char *cmd);
 
 
 #endif
+/* 
+variavel global 
+!!!! */
